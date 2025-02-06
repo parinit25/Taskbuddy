@@ -1,51 +1,6 @@
 @use "../../styles/_variables/colors" as vars;
 @forward "../../styles/components/button"; // Accordion Styling
-.accordion {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-top: 10px;
-  overflow: hidden;
-}
-
-.accordion_header {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  background-color: vars.$todo-table-header;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-// Content & Table Styling
-.accordion_content {
-  // padding: 10px;
-  background-color: vars.$light-grey-200;
-}
-
-.accordion_content_table {
-  width: 100%;
-  border: none;
-  border-collapse: collapse;
-  table-layout: fixed;
-
-  &_head {
-    display: none;
-  }
-
-  th,
-  td {
-    text-align: left;
-    padding: 10px;
-    border: 1px solid #ddd;
-    vertical-align: middle;
-  }
-
-  th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-  }
-}
-
+@forward "../../styles/components/table";
 // Task Form Inputs
 input,
 select {
@@ -65,7 +20,7 @@ select {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  width : 100%;
+  width: 100%;
   text-align: left;
 }
 

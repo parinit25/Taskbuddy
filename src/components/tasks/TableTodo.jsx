@@ -30,124 +30,22 @@ const TableTodo = ({ view, tasks, addTaskHandler }) => {
 
   return (
     <section className={styles.section_table_todo}>
-      {view === "list" ? (
-        <div className={styles.list_view}>
-          <div className={styles.accordion}>
-            <div className={styles.accordion_header} onClick={toggleAccordion}>
-              <span>Todo ({tasks.length})</span>
-              <button>{isAccordionOpen ? "▲" : "▼"}</button>
-            </div>
+      <div className={styles.list_view}>
+        <div className={styles.accordion}>
+          <div className={styles.accordion_header} onClick={toggleAccordion}>
+            <span>Todo ({tasks.length})</span>
+            <button>{isAccordionOpen ? "▲" : "▼"}</button>
+          </div>
 
-            {isAccordionOpen && (
-              <div className={styles.accordion_content}>
-                <button
-                  className={styles.add_task_button}
-                  onClick={addTaskButtonHandler}
-                >
-                  + Add Task
-                </button>
-                {taskButtonActive && (
-                  <table className={styles.accordion_content_table}>
-                    <thead className={styles.accordion_content_table_head}>
-                      <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <input
-                            type="text"
-                            placeholder="Task Title"
-                            onChange={(e) => {
-                              setTodo({ ...todo, title: e.target.value });
-                            }}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="date"
-                            onChange={(e) => {
-                              setTodo({ ...todo, dueDate: e.target.value });
-                            }}
-                          />
-                        </td>
-                        <td>
-                          <FormControl fullWidth>
-                            <InputLabel
-                              variant="standard"
-                              htmlFor="uncontrolled-native"
-                            >
-                              Status
-                            </InputLabel>
-                            <NativeSelect
-                              defaultValue={"Todo"}
-                              inputProps={{
-                                name: "status",
-                                id: "uncontrolled-native",
-                              }}
-                              onChange={(e) => {
-                                setTodo({ ...todo, status: e.target.value });
-                              }}
-                            >
-                              <option value={"Todo"}>Todo</option>
-                              <option value={"In Progress"}>In progress</option>
-                              <option value={"Completed"}>Completed</option>
-                            </NativeSelect>
-                          </FormControl>
-                        </td>
-                        <td>
-                          <FormControl fullWidth>
-                            <InputLabel
-                              variant="standard"
-                              htmlFor="uncontrolled-native"
-                            >
-                              Category
-                            </InputLabel>
-                            <NativeSelect
-                              onChange={(e) => {
-                                setTodo({
-                                  ...todo,
-                                  category: e.target.value,
-                                });
-                              }}
-                              defaultValue={"Work"}
-                              inputProps={{
-                                name: "category",
-                                id: "uncontrolled-native",
-                              }}
-                            >
-                              <option value={"Work"}>Work</option>
-                              <option value={"Personal"}>Personal</option>
-                            </NativeSelect>
-                          </FormControl>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colSpan="4" className={styles.task_form_buttons}>
-                          <button
-                            type="submit"
-                            className={styles.primary_button}
-                            onClick={addTodoHandler}
-                          >
-                            Add
-                          </button>
-                          <button
-                            type="button"
-                            onClick={addTaskButtonHandler}
-                            className={styles.cancel_button}
-                          >
-                            Cancel
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                )}
-
+          {isAccordionOpen && (
+            <div className={styles.accordion_content}>
+              <button
+                className={styles.add_task_button}
+                onClick={addTaskButtonHandler}
+              >
+                + Add Task
+              </button>
+              {taskButtonActive && (
                 <table className={styles.accordion_content_table}>
                   <thead className={styles.accordion_content_table_head}>
                     <tr>
@@ -158,36 +56,121 @@ const TableTodo = ({ view, tasks, addTaskHandler }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {tasks.map((task, index) => (
-                      <tr key={index}>
-                        <td>{task.title}</td>
-                        <td>{task.dueDate}</td>
-                        <td>{task.status}</td>
-                        <td>{task.category}</td>
-                      </tr>
-                    ))}
+                    <tr>
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Task Title"
+                          onChange={(e) => {
+                            setTodo({ ...todo, title: e.target.value });
+                          }}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="date"
+                          onChange={(e) => {
+                            setTodo({ ...todo, dueDate: e.target.value });
+                          }}
+                        />
+                      </td>
+                      <td>
+                        <FormControl fullWidth>
+                          <InputLabel
+                            variant="standard"
+                            htmlFor="uncontrolled-native"
+                          >
+                            Status
+                          </InputLabel>
+                          <NativeSelect
+                            defaultValue={"Todo"}
+                            inputProps={{
+                              name: "status",
+                              id: "uncontrolled-native",
+                            }}
+                            onChange={(e) => {
+                              setTodo({ ...todo, status: e.target.value });
+                            }}
+                          >
+                            <option value={"Todo"}>Todo</option>
+                            <option value={"In Progress"}>In progress</option>
+                            <option value={"Completed"}>Completed</option>
+                          </NativeSelect>
+                        </FormControl>
+                      </td>
+                      <td>
+                        <FormControl fullWidth>
+                          <InputLabel
+                            variant="standard"
+                            htmlFor="uncontrolled-native"
+                          >
+                            Category
+                          </InputLabel>
+                          <NativeSelect
+                            onChange={(e) => {
+                              setTodo({
+                                ...todo,
+                                category: e.target.value,
+                              });
+                            }}
+                            defaultValue={"Work"}
+                            inputProps={{
+                              name: "category",
+                              id: "uncontrolled-native",
+                            }}
+                          >
+                            <option value={"Work"}>Work</option>
+                            <option value={"Personal"}>Personal</option>
+                          </NativeSelect>
+                        </FormControl>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colSpan="4" className={styles.task_form_buttons}>
+                        <button
+                          type="submit"
+                          className={styles.primary_button}
+                          onClick={addTodoHandler}
+                        >
+                          Add
+                        </button>
+                        <button
+                          type="button"
+                          onClick={addTaskButtonHandler}
+                          className={styles.cancel_button}
+                        >
+                          Cancel
+                        </button>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
-              </div>
-            )}
-          </div>
+              )}
+
+              <table className={styles.accordion_content_table}>
+                <thead className={styles.accordion_content_table_head}>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tasks.map((task, index) => (
+                    <tr key={index}>
+                      <td>{task.title}</td>
+                      <td>{task.dueDate}</td>
+                      <td>{task.status}</td>
+                      <td>{task.category}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
-      ) : (
-        <div className={styles.board_view}>
-          <div className={styles.board_column}>
-            <div className={styles.board_header}>To-Do</div>
-            <div className={styles.board_content}>No Tasks in To-Do</div>
-          </div>
-          {/* <div className={styles.board_column}>
-            <div className={styles.board_header}>In-Progress</div>
-            <div className={styles.board_content}>No Tasks In Progress</div>
-          </div> */}
-          {/* <div className={styles.board_column}>
-            <div className={styles.board_header}>Completed</div>
-            <div className={styles.board_content}>No Completed Tasks</div>
-          </div> */}
-        </div>
-      )}
+      </div>
     </section>
   );
 };
