@@ -1,0 +1,50 @@
+@forward "../../styles/_layout/grid";
+@use "../../styles/_variables/colors" as vars;
+
+.section_login {
+  background-color: vars.$background-color;
+}
+.container_login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  &_1 {
+    width: 365.9px;
+    max-width: 100%;
+  }
+}
+
+.login_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 1rem;
+  border-radius: 100px;
+  background-color: vars.$light-black;
+  border: none;
+  color: vars.$white;
+  letter-spacing: 2px;
+  font-size: 1rem;
+  transition: all 0.5s;
+  &:hover {
+    transform: translate(2px, -5px);
+    box-shadow: 0.5rem 0px 1px 5px 10px;
+  }
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100vh;
+
+  &_login_image {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+  }
+}

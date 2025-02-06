@@ -1,0 +1,95 @@
+@forward "../_layout/grid";
+@use "../_variables/colors" as vars;
+
+// Toggle Buttons
+.view_toggle {
+  display: flex;
+  // justify-content: center;
+  margin-bottom: 20px;
+
+  button {
+    padding: 8px 12px;
+    margin: 0 5px;
+    border: none;
+    cursor: pointer;
+    background: #ddd;
+    font-weight: bold;
+
+    &.active {
+      background: #007bff;
+      color: white;
+    }
+  }
+}
+
+// Table Header
+.table_header {
+  width: 100%;
+  table-layout: fixed; // Ensure proper column alignment
+  border-collapse: collapse;
+
+  th {
+    padding: 10px;
+    background: #f4f4f4;
+    text-align: left;
+  }
+}
+
+// Accordion Styles
+.accordion {
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+
+  .accordion_header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .accordion_content {
+    display: block;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  .accordion_content_table {
+    width: 100%;
+    border-collapse: collapse;
+
+    td {
+      padding: 10px;
+      border-top: 1px solid #ddd;
+    }
+  }
+}
+
+// Board View
+.board_view {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  .board_column {
+    flex: 1;
+    min-width: 200px;
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  .board_header {
+    font-weight: bold;
+    background: #ccc;
+    padding: 5px;
+    border-radius: 3px;
+  }
+
+  .board_content {
+    margin-top: 10px;
+  }
+}
