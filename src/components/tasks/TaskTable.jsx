@@ -4,32 +4,21 @@ import TableTodo from "./TableTodo";
 import TableInProgress from "./TableInprogress";
 import TableCompleted from "./TableCompleted";
 import BoardComponent from "./BoardComponent";
+import ViewToggle from "../view-toggle/ViewToggle";
+import TaskHeader from "../task-header/TaskHeader";
 
-const TaskTable = () => {
+const TaskTable = ({ tasks }) => {
   const [view, setView] = useState("list");
-  const [tasks, setTasks] = useState([]);
+  // const [tasks, setTasks] = useState([]);
 
   const addTaskHandler = (item) => {
-    setTasks((prev) => [...prev, item]);
+    // setTasks((prev) => [...prev, item]);
   };
 
   return (
     <section className={styles.section_table_todo}>
-      <div className={styles.view_toggle}>
-        <button
-          onClick={() => setView("list")}
-          className={view === "list" ? styles.active : ""}
-        >
-          List View
-        </button>
-        <button
-          onClick={() => setView("board")}
-          className={view === "board" ? styles.active : ""}
-        >
-          Board View
-        </button>
-      </div>
-
+      <ViewToggle view={view} setView={setView} />
+      <TaskHeader />
       {view === "list" ? (
         <>
           <div className={styles.list_view}>
@@ -46,16 +35,16 @@ const TaskTable = () => {
           </div>
           <TableTodo
             view={view}
-            tasks={tasks.filter((item) => item.status === "Todo")}
+            tasks={tasks?.filter((item) => item.status === "Todo")}
             addTaskHandler={addTaskHandler}
           />
           <TableInProgress
             view={view}
-            tasks={tasks.filter((item) => item.status === "In Progress")}
+            tasks={tasks?.filter((item) => item.status === "In Progress")}
           />
           <TableCompleted
             view={view}
-            tasks={tasks.filter((item) => item.status === "Completed")}
+            tasks={tasks?.filter((item) => item.status === "Completed")}
           />
         </>
       ) : (

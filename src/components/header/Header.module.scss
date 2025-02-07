@@ -1,0 +1,32 @@
+@use "../../styles/_variables/colors" as vars;
+
+.nav_navbar {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: vars.$navbar-background-color;
+}
+
+.user_img_name_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  .user_profile_pic {
+    height: 2rem;
+    width: auto;
+    border-radius: 50%;
+    transition: all 300ms;
+    display: inline-block;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+  .user_name {
+    color: #777;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+}

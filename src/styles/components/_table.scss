@@ -7,16 +7,20 @@
   margin-bottom: 20px;
 
   button {
-    padding: 8px 12px;
+    padding: 8px 2px 8px 2px;
     margin: 0 5px;
     border: none;
     cursor: pointer;
-    background: #ddd;
+    color: #777;
     font-weight: bold;
-
+    background-color: vars.$white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     &.active {
-      background: #007bff;
-      color: white;
+      color: vars.$light-black;
+      border-bottom: 2px solid vars.$light-black;
     }
   }
 }
@@ -31,6 +35,10 @@
     padding: 10px;
     background: vars.$white;
     text-align: left;
+    font-weight: 700;
+    font-size: 0.8rem;
+    border-top: 1px solid vars.$light-grey-300;
+    color: #777;
   }
 }
 
@@ -39,6 +47,7 @@
   border-radius: 10px;
   margin-top: 10px;
   overflow: hidden;
+  // font-size: rem;
 }
 
 .accordion_header {
@@ -78,6 +87,11 @@
     background-color: #f4f4f4;
     font-weight: bold;
   }
+}
+
+.empty_accordion {
+  padding: 5rem;
+  text-align: center;
 }
 
 // Board View

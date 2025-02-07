@@ -29,14 +29,20 @@ const TableCompleted = ({ view, tasks }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {tasks.map((task, index) => (
-                    <tr key={index}>
-                      <td>{task.title}</td>
-                      <td>{task.dueDate}</td>
-                      <td>{task.status}</td>
-                      <td>{task.category}</td>
-                    </tr>
-                  ))}
+                  {tasks?.length > 0 ? (
+                    tasks?.map((task, index) => (
+                      <tr key={index}>
+                        <td>{task.title}</td>
+                        <td>{task.dueDate}</td>
+                        <td>{task.status}</td>
+                        <td>{task.category}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <div className={styles.empty_accordion}>
+                      No tasks in Completed
+                    </div>
+                  )}
                 </tbody>
               </table>{" "}
             </div>

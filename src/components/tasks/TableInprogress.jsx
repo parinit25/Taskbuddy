@@ -13,7 +13,7 @@ const TableInProgress = ({ view, tasks }) => {
       <div className={styles.list_view}>
         <div className={styles.accordion}>
           <div className={styles.accordion_header} onClick={toggleAccordion}>
-            <span>In Progress ({tasks.length})</span>
+            <span>In Progress ({tasks?.length})</span>
             <button>{isAccordionOpen ? "▲" : "▼"}</button>
           </div>
 
@@ -29,14 +29,20 @@ const TableInProgress = ({ view, tasks }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {tasks.map((task, index) => (
-                    <tr key={index}>
-                      <td>{task.title}</td>
-                      <td>{task.dueDate}</td>
-                      <td>{task.status}</td>
-                      <td>{task.category}</td>
-                    </tr>
-                  ))}
+                  {tasks?.length > 0 ? (
+                    tasks?.map((task, index) => (
+                      <tr key={index}>
+                        <td>{task.title}</td>
+                        <td>{task.dueDate}</td>
+                        <td>{task.status}</td>
+                        <td>{task.category}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <div className={styles.empty_accordion}>
+                      No tasks in Progress
+                    </div>
+                  )}
                 </tbody>
               </table>
             </div>

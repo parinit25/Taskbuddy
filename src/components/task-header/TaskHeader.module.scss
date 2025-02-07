@@ -1,0 +1,84 @@
+@forward "../../styles/components/button";
+
+.task_header_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px 0 10px 10px;
+  gap: 10px;
+}
+
+/* Prevents filters from going into the space between */
+.filter_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap; /* Prevents breaking */
+}
+
+.filter_by_text {
+  font-size: 14px;
+  color: #666;
+}
+
+select {
+  padding: 8px 0 8px 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-weight: 600;
+  color: #777;
+  font-size: 0.7rem;
+  background: white;
+  cursor: pointer;
+  outline: none;
+  min-width: 120px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("https://img.icons8.com/?size=100&id=60662&format=png&color=000000");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+}
+
+.search_add_task_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search_box {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 14px;
+  outline: none;
+  min-width: 150px; /* Prevents shrinking */
+}
+.primary_button {
+//   width: 100%;
+  margin-right: 0;
+}
+
+/* RESPONSIVE FIX: Keep Filters Together */
+@media (max-width: 768px) {
+  .task_header_container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filter_container {
+    width: 100%;
+    justify-content: flex-start; /* Aligns filters properly */
+  }
+
+  .search_add_task_container {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .search_box {
+    flex-grow: 1;
+  }
+}
