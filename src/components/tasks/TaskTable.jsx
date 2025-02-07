@@ -7,13 +7,8 @@ import BoardComponent from "./BoardComponent";
 import ViewToggle from "../view-toggle/ViewToggle";
 import TaskHeader from "../task-header/TaskHeader";
 
-const TaskTable = ({ tasks }) => {
+const TaskTable = ({ tasks, addTodoHandler }) => {
   const [view, setView] = useState("list");
-  // const [tasks, setTasks] = useState([]);
-
-  const addTaskHandler = (item) => {
-    // setTasks((prev) => [...prev, item]);
-  };
 
   return (
     <section className={styles.section_table_todo}>
@@ -36,7 +31,7 @@ const TaskTable = ({ tasks }) => {
           <TableTodo
             view={view}
             tasks={tasks?.filter((item) => item.status === "Todo")}
-            addTaskHandler={addTaskHandler}
+            addTodoHandler={addTodoHandler}
           />
           <TableInProgress
             view={view}

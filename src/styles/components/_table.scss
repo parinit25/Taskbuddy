@@ -71,6 +71,14 @@
   border-collapse: collapse;
   table-layout: fixed;
 
+  tbody .task_status {
+    display: inline-block;
+    background: #d2d2d2;
+    text-align: center;
+    padding : 1px 5px;
+    border-radius: 5px;
+  }
+
   &_head {
     display: none;
   }
@@ -79,7 +87,7 @@
   td {
     text-align: left;
     padding: 10px;
-    border: 1px solid #ddd;
+    border-bottom: 1px solid #ccc;
     vertical-align: middle;
   }
 

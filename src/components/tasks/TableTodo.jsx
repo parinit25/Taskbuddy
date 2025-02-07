@@ -6,7 +6,7 @@ import styles from "./TableTodo.module.scss";
 import { useAuth } from "../../context/useAuth";
 import { FormHelperText } from "@mui/material";
 
-const TableTodo = ({ view, tasks, addTaskHandler }) => {
+const TableTodo = ({ view, tasks, addTodoHandler }) => {
   const [isAccordionOpen, setIsAccordionOpen] = useState(true);
   const [taskButtonActive, setTaskButtonActive] = useState(false);
   const [statusError, setStatusError] = useState(false);
@@ -31,7 +31,7 @@ const TableTodo = ({ view, tasks, addTaskHandler }) => {
     setTaskButtonActive(!taskButtonActive);
   };
 
-  const addTodoHandler = async () => {
+  const submitHandler = () => {
     let hasError = false;
     if (!todo.status || todo.status === "Select Status") {
       setStatusError(true);
@@ -46,26 +46,7 @@ const TableTodo = ({ view, tasks, addTaskHandler }) => {
       setCategoryError(false);
     }
     if (hasError) return;
-    const newTodo = {
-      ...todo,
-      id: Math.random(),
-    };
-
-    console.log("New Todo:", newTodo);
-    try {
-      const response = await fetch(
-        `https://task-buddy-f099c-default-rtdb.firebaseio.com/tasks/${user.sub}.json`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newTodo),
-        }
-      );
-      const data = await response.json();
-      console.log("Task added:", data);
-    } catch (error) {
-      console.error("Error adding task:", error);
-    }
+    addTodoHandler(todo);
   };
 
   return (
@@ -116,10 +97,7 @@ const TableTodo = ({ view, tasks, addTaskHandler }) => {
                         />
                       </td>
                       <td>
-                        <FormControl
-                          fullWidth
-                          error={statusError || categoryError}
-                        >
+                        <FormControl fullWidth error={statusError}>
                           <InputLabel
                             variant="standard"
                             htmlFor="status-select"
@@ -154,7 +132,7 @@ const TableTodo = ({ view, tasks, addTaskHandler }) => {
                         </FormControl>
                       </td>
                       <td>
-                        <FormControl fullWidth>
+                        <FormControl fullWidth error={categoryError}>
                           <InputLabel
                             variant="standard"
                             htmlFor="uncontrolled-native"
@@ -194,7 +172,7 @@ const TableTodo = ({ view, tasks, addTaskHandler }) => {
                         <button
                           type="submit"
                           className={styles.primary_button}
-                          onClick={addTodoHandler}
+                          onClick={submitHandler}
                         >
                           Add
                         </button>
@@ -226,7 +204,11 @@ const TableTodo = ({ view, tasks, addTaskHandler }) => {
                       <tr key={index}>
                         <td>{task.title}</td>
                         <td>{task.dueDate}</td>
-                        <td>{task.status}</td>
+                        <td>
+                          <span className={styles.task_status}>
+                            {task.status}
+                          </span>
+                        </td>
                         <td>{task.category}</td>
                       </tr>
                     ))

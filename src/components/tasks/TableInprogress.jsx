@@ -34,7 +34,12 @@ const TableInProgress = ({ view, tasks }) => {
                       <tr key={index}>
                         <td>{task.title}</td>
                         <td>{task.dueDate}</td>
-                        <td>{task.status}</td>
+                        <td>
+                          <span className={styles.task_status}>
+                            {task.status}
+                          </span>
+                        </td>
+
                         <td>{task.category}</td>
                       </tr>
                     ))

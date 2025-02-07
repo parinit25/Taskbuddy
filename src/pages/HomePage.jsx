@@ -22,37 +22,49 @@ const HomePage = () => {
         console.log("No tasks found.");
         return;
       }
-
-      // Convert object to array
       const tasksArray = Object.entries(data).map(([key, value]) => ({
-        id: key, // Keeping Firebase ID
-        ...value, // Spread existing task properties
+        id: key,
+        ...value,
       }));
 
       console.log("Formatted tasks:", tasksArray);
-
-      return tasksArray; // Store in state if using React
+      if (tasksArray.length > 0) {
+        setTasks(tasksArray);
+      }
     } catch (error) {
       console.error("Error fetching tasks:", error);
     }
   };
-
-  // Example usage inside useEffect
-  useEffect(() => {
-    getTasksTable().then((tasks) => {
-      if (tasks) {
-        setTasks(tasks); // Assuming you have `const [tasks, setTasks] = useState([]);`
+  const addTodoHandler = async (todo) => {
+    console.log(todo);
+    const newTodo = {
+      ...todo,
+      id: Math.random(),
+    };
+    try {
+      const response = await fetch(
+        `https://task-buddy-f099c-default-rtdb.firebaseio.com/tasks/${user.sub}.json`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newTodo),
+        }
+      );
+      if (response.ok) {
+        getTasksTable();
       }
-    });
-  }, [user]);
+    } catch (error) {
+      console.error("Error adding task:", error);
+    }
+  };
 
   useEffect(() => {
     getTasksTable();
-  }, []);
+  }, [user]);
 
   return (
     <div>
-      <TaskTable tasks={tasks} />
+      <TaskTable tasks={tasks} addTodoHandler={addTodoHandler} />
     </div>
   );
 };

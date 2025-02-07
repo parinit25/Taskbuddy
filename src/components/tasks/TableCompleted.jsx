@@ -13,7 +13,7 @@ const TableCompleted = ({ view, tasks }) => {
       <div className={styles.list_view}>
         <div className={styles.accordion}>
           <div className={styles.accordion_header} onClick={toggleAccordion}>
-            <span>Completed (3)</span>
+            <span>Completed ({tasks?.length})</span>
             <button>{isAccordionOpen ? "▲" : "▼"}</button>
           </div>
 
@@ -34,7 +34,13 @@ const TableCompleted = ({ view, tasks }) => {
                       <tr key={index}>
                         <td>{task.title}</td>
                         <td>{task.dueDate}</td>
-                        <td>{task.status}</td>
+
+                        <td>
+                          <span className={styles.task_status}>
+                            {task.status}
+                          </span>
+                        </td>
+
                         <td>{task.category}</td>
                       </tr>
                     ))
