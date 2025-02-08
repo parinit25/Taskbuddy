@@ -1,9 +1,12 @@
-@use "../../../styles/_variables/colors" as vars;
-@forward "../../../styles/components/button"; // Accordion Styling
-@forward "../../../styles/components/table";
+@forward "../../../../styles/_layout/grid";
+@use "../../../../styles/_variables/colors" as vars;
+@forward "../../../../styles/components/table";
+
+.accordion_header {
+  background-color: vars.$progress-table-header;
+}
 // Task Form Inputs
 .add_form_row {
-  
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr; // Ensures proper alignment
   gap: 10px; // Adds spacing between elements
@@ -35,36 +38,5 @@
 
   @media (max-width: 600px) {
     grid-template-columns: 1fr; // Single column on mobile
-  }
-}
-
-// Ensure table does not shrink
-.accordion_content_table {
-  width: 100%;
-  table-layout: fixed;
-}
-
-// Task Form Buttons
-.task_form_buttons {
-  display: flex;
-  // justify-content: space-between;
-  padding: 10px;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid vars.$light-grey-400;
-}
-.add_task_button {
-  font-family: "urbanist", sans-serif;
-  padding: 8px 12px;
-  background-color: transparent;
-  color: vars.$light-black;
-  font-weight: 600;
-  font-size: 0.9rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 100%;
-  text-align: left;
-  &::first-letter {
-    color: vars.$add-button-color;
   }
 }

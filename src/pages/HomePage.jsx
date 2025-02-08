@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import TaskTable from "../components/tasks/main-component/TaskTable";
 import { useAuth } from "../context/useAuth";
 import { useTasks } from "../context/TaskContext";
+import TaskTable from "../components/tasks/list/main-component/TaskTable";
 
 const HomePage = () => {
   // const [tasks, setTasks] = useState();

@@ -5,6 +5,7 @@ const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(""); // New state for search input
   const { user } = useAuth();
 
   const getTasksTable = async () => {
@@ -28,7 +29,7 @@ export const TaskProvider = ({ children }) => {
       }
 
       const tasksArray = Object.entries(data).map(([key, value]) => ({
-        id: key,
+        key,
         ...value,
       }));
 
@@ -65,6 +66,26 @@ export const TaskProvider = ({ children }) => {
     }
   };
 
+  const deleteTaskHandler = async (key) => {
+    const response = await fetch(
+      `https://task-buddy-f099c-default-rtdb.firebaseio.com/tasks/${user.sub}/${key}.json`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok) {
+      getTasksTable();
+    }
+  };
+
+  // Filtered tasks based on search query
+  const filteredTasks = tasks.filter((task) =>
+    task.title?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   useEffect(() => {
     if (user) {
       getTasksTable();
@@ -72,7 +93,16 @@ export const TaskProvider = ({ children }) => {
   }, [user]);
 
   return (
-    <TaskContext.Provider value={{ tasks, addTodoHandler, getTasksTable }}>
+    <TaskContext.Provider
+      value={{
+        tasks: filteredTasks, // Use filtered tasks instead of all tasks
+        addTodoHandler,
+        getTasksTable,
+        deleteTaskHandler,
+        searchQuery,
+        setSearchQuery,
+      }}
+    >
       {children}
     </TaskContext.Provider>
   );

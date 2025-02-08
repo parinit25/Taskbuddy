@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
-import useWindowSize from "../../../hooks/useWindowSize";
-import TaskHeader from "../../task-header/TaskHeader";
-import ViewToggle from "../../view-toggle/ViewToggle";
+import useWindowSize from "../../../../hooks/useWindowSize";
+import TaskHeader from "../../../task-header/TaskHeader";
+import ViewToggle from "../../../view-toggle/ViewToggle";
 import TableCompleted from "../completed/TableCompleted";
 import TableInProgress from "../inprogress/TableInprogress";
 import TableTodo from "../todo/TableTodo";
 import styles from "./TaskTable.module.scss";
-import BoardMainComponent from "../board-component/board-main-component/BoardMainComponent";
+import BoardMainComponent from "../../board/board-main-component/BoardMainComponent";
+import { useTasks } from "../../../../context/TaskContext";
 
 const TaskTable = () => {
   const { width, height } = useWindowSize();
   const [view, setView] = useState("list");
+  const { tasks } = useTasks();
+
+  // Filter tasks by status
+  const filterTask = {
+    todo: tasks.filter((item) => item.status === "Todo"),
+    pending: tasks.filter((item) => item.status === "In Progress"),
+    completed: tasks.filter((item) => item.status === "Completed"),
+  };
 
   useEffect(() => {
     if (width < 600) {
@@ -32,13 +41,14 @@ const TaskTable = () => {
                   <th align="left">Due On</th>
                   <th align="left">Task Status</th>
                   <th align="left">Task Category</th>
+                  <th align="left"></th>
                 </tr>
               </thead>
             </table>
           </div>
-          <TableTodo view={view} />
-          <TableInProgress view={view} />
-          <TableCompleted view={view} />
+          <TableTodo view={view} todoTasks={filterTask.todo} />
+          <TableInProgress view={view} pendingTasks={filterTask.pending} />
+          <TableCompleted view={view} completedTasks={filterTask.completed} />
         </>
       ) : (
         <BoardMainComponent />

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import styles from "./TaskHeader.module.scss";
 import CreateTaskModal from "../tasks/create-task-modal/CreateTaskModal";
+import { useTasks } from "../../context/TaskContext";
 
 const TaskHeader = () => {
   const [open, setOpen] = useState(false);
+  const { searchQuery, setSearchQuery } = useTasks();
   return (
     <div className={styles.task_header_container}>
       <div className={styles.filter_container}>
@@ -24,7 +26,12 @@ const TaskHeader = () => {
         </select>
       </div>
       <div className={styles.search_add_task_container}>
-        <input className={styles.search_box} placeholder="search" />
+        <input
+          className={styles.search_box}
+          value={searchQuery}
+          placeholder="search"
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
         <button className={styles.primary_button} onClick={() => setOpen(true)}>
           Add Task
         </button>
