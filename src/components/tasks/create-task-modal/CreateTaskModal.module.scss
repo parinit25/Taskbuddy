@@ -1,0 +1,147 @@
+@forward "../../../styles/components/button";
+@use "../../../styles/_variables/colors" as vars;
+
+.dialog_title_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 0 20px;
+  margin: 0;
+  background-color: vars.$light-grey-200;
+  border-bottom: 1px solid vars.$light-grey-400;
+}
+
+.error_text {
+  color: red;
+}
+
+.dialog_content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+}
+.close_icon {
+  cursor: pointer;
+  transition: all 300ms;
+
+  &:hover {
+    color: vars.$red;
+    transform: scale(1.5);
+  }
+}
+
+.input_field {
+  // width: 100%;
+  background-color: vars.$light-grey-200;
+  max-width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid vars.$light-grey-400;
+  border-radius: 5px;
+  &::placeholder {
+    font-family: "urbanist", sans-serif;
+  }
+}
+
+.editor_container {
+  max-width: 100%;
+  min-height: 150px;
+  border: 1px solid vars.$light-grey-400;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: vars.$light-grey-200;
+}
+
+.category_container {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.task_category_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.task_label {
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.category_button_container {
+  display: flex;
+  gap: 10px;
+}
+
+.category_button {
+  font-family: "urbanist", sans-serif;
+  padding: 6px 12px;
+  font-size: 1rem;
+  border: 1px solid vars.$light-grey-400;
+  border-radius: 5px;
+  background-color: #f3f3f3;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  &:hover {
+    background-color: #ddd;
+  }
+
+  &.active {
+    background-color: vars.$add-button-color;
+    color: white;
+  }
+}
+
+.select_field {
+  background-color: vars.$light-grey-200;
+  width: 100%;
+  padding: 8px;
+  font-family: "urbanist", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 1px solid vars.$light-grey-400;
+  border-radius: 5px;
+}
+
+.attachment {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.file_label {
+  background-color: vars.$light-grey-200;
+  display: block;
+  padding: 10px;
+  border: 1px dashed vars.$light-grey-400;
+  cursor: pointer;
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 5rem;
+
+  &:hover {
+    background: #f9f9f9;
+  }
+}
+
+.dialog_actions {
+  border-top: 1px solid vars.$light-grey-400;
+  background-color: vars.$light-grey-200;
+  padding: 15px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .category_container {
+    display: flex;
+    flex-direction: column;
+  }
+  .category_button {
+    width: 100%;
+  }
+}

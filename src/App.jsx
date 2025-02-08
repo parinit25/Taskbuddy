@@ -6,26 +6,29 @@ import ProtectedLayout from "./utils/ProtectedLayout";
 
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import { TaskProvider } from "./context/TaskContext";
 
 export const App = () => {
   return (
     <AuthProvider>
-      <Routes>
-        {/* Public Route */}
-        <Route path="/login" element={<LoginPage />} />
+      <TaskProvider>
+        <Routes>
+          {/* Public Route */}
+          <Route path="/login" element={<LoginPage />} />
 
-        {/* Protected Routes */}
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <ProtectedLayout />
-            </ProtectedRoute>
-          }
-        >
-          <Route index element={<HomePage />} />
-        </Route>
-      </Routes>
+          {/* Protected Routes */}
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <ProtectedLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<HomePage />} />
+          </Route>
+        </Routes>
+      </TaskProvider>
     </AuthProvider>
   );
 };

@@ -1,0 +1,20 @@
+@forward "../../../styles/_layout/grid";
+@use "../../../styles/_variables/colors" as vars;
+@forward "../../../styles/components/table";
+
+.accordion_header {
+  background-color: vars.$completed-table-header;
+}
+.task_icons {
+  &_3 {
+    margin-right: 0.5rem;
+    color: vars.$green;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.1);
+      color: vars.$green;
+    }
+  }
+  // width: 1%;
+  // display: inline;
+}

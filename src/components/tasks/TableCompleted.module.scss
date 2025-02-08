@@ -1,7 +1,0 @@
-@forward "../../styles/_layout/grid";
-@use "../../styles/_variables/colors" as vars;
-@forward "../../styles/components/table";
-
-.accordion_header {
-  background-color: vars.$completed-table-header;
-}

@@ -1,17 +1,17 @@
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import NativeSelect from "@mui/material/NativeSelect";
-import React, { useState } from "react";
-import styles from "./TableTodo.module.scss";
-import { useAuth } from "../../context/useAuth";
 import { FormHelperText } from "@mui/material";
+import FormControl from "@mui/material/FormControl";
+import React, { useState } from "react";
+import { useTasks } from "../../../context/TaskContext";
+import styles from "./TableTodo.module.scss";
+import { Icon } from "@iconify/react";
 
-const TableTodo = ({ view, tasks, addTodoHandler }) => {
+const TableTodo = () => {
+  const { tasks, addTodoHandler } = useTasks();
+  const todoTasks = tasks.filter((item) => item.status === "Todo");
   const [isAccordionOpen, setIsAccordionOpen] = useState(true);
   const [taskButtonActive, setTaskButtonActive] = useState(false);
   const [statusError, setStatusError] = useState(false);
   const [categoryError, setCategoryError] = useState(false);
-  const { user } = useAuth();
   const [todo, setTodo] = useState({
     id: null,
     title: "",
@@ -54,7 +54,7 @@ const TableTodo = ({ view, tasks, addTodoHandler }) => {
       <div className={styles.list_view}>
         <div className={styles.accordion}>
           <div className={styles.accordion_header} onClick={toggleAccordion}>
-            <span>Todo ({tasks?.length})</span>
+            <span>Todo ({todoTasks?.length})</span>
             <button>{isAccordionOpen ? "▲" : "▼"}</button>
           </div>
 
@@ -70,6 +70,7 @@ const TableTodo = ({ view, tasks, addTodoHandler }) => {
                 <table className={styles.accordion_content_table}>
                   <thead className={styles.accordion_content_table_head}>
                     <tr>
+                      {/* <th></th> */}
                       <th></th>
                       <th></th>
                       <th></th>
@@ -77,7 +78,7 @@ const TableTodo = ({ view, tasks, addTodoHandler }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr className={styles.add_form_row}>
                       <td>
                         <input
                           type="text"
@@ -98,13 +99,7 @@ const TableTodo = ({ view, tasks, addTodoHandler }) => {
                       </td>
                       <td>
                         <FormControl fullWidth error={statusError}>
-                          <InputLabel
-                            variant="standard"
-                            htmlFor="status-select"
-                          >
-                            Status
-                          </InputLabel>
-                          <NativeSelect
+                          <select
                             value={todo.status || "Select Status"}
                             onChange={(e) => {
                               setTodo({
@@ -118,12 +113,12 @@ const TableTodo = ({ view, tasks, addTodoHandler }) => {
                             }}
                           >
                             <option value="Select Status" disabled>
-                              Select Status
+                              Status
                             </option>
                             <option value="Todo">Todo</option>
                             <option value="In Progress">In Progress</option>
                             <option value="Completed">Completed</option>
-                          </NativeSelect>
+                          </select>
                           {statusError && (
                             <FormHelperText>
                               Please select a valid status.
@@ -133,13 +128,7 @@ const TableTodo = ({ view, tasks, addTodoHandler }) => {
                       </td>
                       <td>
                         <FormControl fullWidth error={categoryError}>
-                          <InputLabel
-                            variant="standard"
-                            htmlFor="uncontrolled-native"
-                          >
-                            Category
-                          </InputLabel>
-                          <NativeSelect
+                          <select
                             value={todo.category || "Select Category"}
                             onChange={(e) => {
                               setTodo({
@@ -154,11 +143,11 @@ const TableTodo = ({ view, tasks, addTodoHandler }) => {
                             }}
                           >
                             <option value="Select Category" disabled>
-                              Select Category
+                              Category
                             </option>
                             <option value={"Work"}>Work</option>
                             <option value={"Personal"}>Personal</option>
-                          </NativeSelect>
+                          </select>
                           {categoryError && (
                             <FormHelperText>
                               Please select a valid category.
@@ -167,6 +156,7 @@ const TableTodo = ({ view, tasks, addTodoHandler }) => {
                         </FormControl>
                       </td>
                     </tr>
+
                     <tr>
                       <td colSpan="4" className={styles.task_form_buttons}>
                         <button
@@ -192,6 +182,7 @@ const TableTodo = ({ view, tasks, addTodoHandler }) => {
               <table className={styles.accordion_content_table}>
                 <thead className={styles.accordion_content_table_head}>
                   <tr>
+                    {/* <th></th> */}
                     <th></th>
                     <th></th>
                     <th></th>
@@ -199,19 +190,44 @@ const TableTodo = ({ view, tasks, addTodoHandler }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {tasks?.length > 0 ? (
-                    tasks?.map((task, index) => (
-                      <tr key={index}>
-                        <td>{task.title}</td>
-                        <td>{task.dueDate}</td>
-                        <td>
-                          <span className={styles.task_status}>
-                            {task.status}
-                          </span>
-                        </td>
-                        <td>{task.category}</td>
-                      </tr>
-                    ))
+                  {todoTasks?.length > 0 ? (
+                    todoTasks
+                      ?.filter((item) => item.status === "Todo")
+                      .map((task, index) => (
+                        <tr key={index}>
+                          {/* <td className={styles.task_checkbox}></td> */}
+                          <td>
+                            <input
+                              type="checkbox"
+                              className={styles.task_icons_1}
+                            />
+                            <Icon
+                              className={styles.task_icons_2}
+                              icon="lsicon:drag-outline"
+                              width="24"
+                              height="24"
+                            />
+                            <Icon
+                              className={styles.task_icons_3}
+                              icon="mdi:tick-circle"
+                              width="20"
+                              height="20"
+                            />
+                            {task.title}
+                          </td>
+                          <td className={styles.task_due_date}>
+                            {task.dueDate}
+                          </td>
+                          <td>
+                            <span className={styles.task_status}>
+                              {task.status}
+                            </span>
+                          </td>
+                          <td className={styles.task_category}>
+                            {task.category}
+                          </td>
+                        </tr>
+                      ))
                   ) : (
                     <div className={styles.empty_accordion}>
                       No tasks in Todo
