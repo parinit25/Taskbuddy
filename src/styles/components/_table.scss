@@ -24,11 +24,27 @@
     }
   }
 }
+.add_task_button {
+  font-family: "urbanist", sans-serif;
+  padding: 8px 12px;
+  background-color: transparent;
+  color: vars.$light-black;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  &::first-letter {
+    color: vars.$add-button-color;
+  }
+}
 
 // Table Header
 .table_header {
   width: 100%;
-  table-layout: fixed; // Ensure proper column alignment
+  table-layout: fixed; // Ensures columns align properly
   border-collapse: collapse;
 
   th {
@@ -43,6 +59,8 @@
 }
 
 .accordion {
+  z-index: 0;
+
   border: 1px solid #ccc;
   border-radius: 10px;
   margin-top: 10px;
@@ -51,6 +69,8 @@
 }
 
 .accordion_header {
+  z-index: 0;
+
   display: flex;
   justify-content: space-between;
   padding: 10px;
@@ -97,16 +117,16 @@
 }
 .accordion_content_table {
   width: 100%;
-  border: none;
+  table-layout: fixed; // Fixes alignment issues
   border-collapse: collapse;
-  table-layout: fixed;
 
   tbody .task_status {
     display: inline-block;
     background: #d2d2d2;
     text-align: center;
-    padding: 1px 5px;
+    padding: 5px 10px;
     border-radius: 5px;
+    white-space: nowrap; // Prevents text from overflowing
   }
 
   &_head {
@@ -124,7 +144,6 @@
     vertical-align: middle;
     &:first-child {
       display: flex;
-      // justify-content: center;
       align-items: center;
     }
   }
@@ -138,19 +157,19 @@
 .empty_accordion {
   padding: 5rem;
   text-align: center;
+  // margin : 5rem;
 }
 .edit_delete_card_container {
   transition: all 300ms;
   z-index: 1;
   border: 1px solid vars.$logout-button-border-color;
   position: absolute;
-  left: -4rem;
+  left: -6rem;
   top: -2.5rem;
   background-color: vars.$logout-button-color;
   border-radius: 10px;
   opacity: 0;
   visibility: hidden;
-
   & ul {
     margin: 0;
     padding: 5px 5px 5px 5px;
@@ -171,25 +190,15 @@
       }
     }
   }
-
   &:hover {
     visibility: visible;
     opacity: 1;
-  }
-  @media (max-width: 992px) {
-    left: -4rem;
-    top: -3rem;
-  }
-  @media (max-width: 600px) {
-    left: 6rem;
-    // top: -5rem;
   }
 }
 
 .edit_button_container {
   position: relative;
-  display: flex;
-  justify-content: flex-end;
+  float: right;
   &:hover {
     // transform: scale(1.1);
     cursor: pointer;
@@ -224,54 +233,5 @@
   }
   .task_due_date {
     display: none !important;
-  }
-}
-
-// Ensure table does not shrink
-.accordion_content_table {
-  width: 100%;
-  table-layout: fixed;
-}
-
-// Task Form Buttons
-.task_form_buttons {
-  display: flex;
-  // justify-content: space-between;
-  padding: 10px;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid vars.$light-grey-400;
-}
-.add_task_button {
-  font-family: "urbanist", sans-serif;
-  padding: 8px 12px;
-  background-color: transparent;
-  color: vars.$light-black;
-  font-weight: 600;
-  font-size: 0.9rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 100%;
-  text-align: left;
-  &::first-letter {
-    color: vars.$add-button-color;
-  }
-}
-.options_td {
-  text-align: right;
-  width: 50px;
-}
-
-@media screen and (max-width: 768px) {
-  .options_td {
-    width: auto;
-    text-align: right;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .options_td {
-    width: auto;
-    text-align: right;
   }
 }

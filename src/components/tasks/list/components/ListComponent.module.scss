@@ -1,3 +1,50 @@
 @forward "../../../../styles/_layout/grid";
 @use "../../../../styles/_variables/colors" as vars;
 @forward "../../../../styles/components/table";
+
+.task_status {
+  position: relative;
+  cursor: pointer;
+  .status_modal_container {
+    z-index: 2;
+    transition: all 300ms;
+    z-index: 1;
+    border: 1px solid vars.$logout-button-border-color;
+    position: absolute;
+    left: 3rem;
+    top: -4rem;
+    background-color: vars.$logout-button-color;
+    border-radius: 10px;
+    opacity: 0;
+    visibility: hidden;
+    & ul {
+      margin: 0;
+      padding: 5px 5px 5px 5px;
+      list-style: none;
+    }
+    & ul li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      &:hover {
+        background-color: vars.$logout-button-border-color;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &:hover {
+    .status_modal_container {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+.task_title_completed {
+  text-decoration: line-through;
+}

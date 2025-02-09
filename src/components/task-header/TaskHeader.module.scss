@@ -21,8 +21,12 @@
   font-size: 14px;
   color: #666;
 }
+.custom_select option {
+  font-family: "urbanist", sans-serif;
+}
 
 select {
+  font-family: "urbanist", sans-serif;
   padding: 8px 0 8px 1.2rem;
   border: 1px solid #ccc;
   border-radius: 20px;
@@ -49,6 +53,7 @@ select {
 }
 
 .search_box {
+  font-family: "urbanist", sans-serif;
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 20px;
@@ -57,7 +62,7 @@ select {
   min-width: 150px; /* Prevents shrinking */
 }
 .primary_button {
-//   width: 100%;
+  //   width: 100%;
   margin-right: 0;
 }
 

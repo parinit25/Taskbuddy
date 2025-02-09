@@ -6,9 +6,7 @@ import ListComponent from "../components/ListComponent";
 
 const TableCompleted = () => {
   const { tasks } = useTasks();
-  const completedTasks = tasks?.filter(
-    (item) => item.status === "Completed"
-  );
+  const completedTasks = tasks?.filter((item) => item.status === "Completed");
   const [isAccordionOpen, setIsAccordionOpen] = useState(true); // State for accordion
 
   const toggleAccordion = () => {
@@ -25,7 +23,7 @@ const TableCompleted = () => {
 
           {isAccordionOpen && (
             <div className={styles.accordion_content}>
-              <ListComponent tasks={completedTasks} />
+              <ListComponent tasks={completedTasks} title="Completed" />
             </div>
           )}
         </div>

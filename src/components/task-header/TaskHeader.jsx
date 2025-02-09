@@ -6,23 +6,40 @@ import { useTasks } from "../../context/TaskContext";
 const TaskHeader = () => {
   const [open, setOpen] = useState(false);
   const { searchQuery, setSearchQuery } = useTasks();
+  const { filter, setFilter } = useTasks();
+
+  const changeFilterHandler = (e) => {
+    const { name, value } = e.target;
+    setFilter((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   return (
     <div className={styles.task_header_container}>
       <div className={styles.filter_container}>
         <p className={styles.filter_by_text}>Filter by</p>
         <select
+          name="category"
           className={styles.custom_select}
           title="Category"
-          defaultValue="Category"
+          value={filter.category}
+          onChange={changeFilterHandler}
         >
-          <option disabled>Category</option>
-          <option>Work</option>
-          <option>Personal</option>
+          <option value="">All Categories</option>
+          <option value="Work">Work</option>
+          <option value="Personal">Personal</option>
         </select>
-        <select className={styles.custom_select}>
-          <option>Due date</option>
-          <option>Old to New</option>
-          <option>new to old</option>
+        <select
+          name="dueDate"
+          className={styles.custom_select}
+          value={filter.dueDate}
+          onChange={changeFilterHandler}
+        >
+          <option value="">All Dates</option>
+          <option value="Newest First">Newest First</option>
+          <option value="Oldest First">Oldest First</option>
         </select>
       </div>
       <div className={styles.search_add_task_container}>

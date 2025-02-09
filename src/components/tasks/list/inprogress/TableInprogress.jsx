@@ -6,9 +6,7 @@ import { useTasks } from "../../../../context/TaskContext";
 const TableInProgress = () => {
   const { tasks } = useTasks();
   const [isAccordionOpen, setIsAccordionOpen] = useState(true);
-  const pendingTasks = tasks?.filter(
-    (item) => item.status === "In Progress"
-  );
+  const pendingTasks = tasks?.filter((item) => item.status === "In Progress");
 
   const toggleAccordion = () => {
     setIsAccordionOpen(!isAccordionOpen);
@@ -24,7 +22,7 @@ const TableInProgress = () => {
           </div>
           {isAccordionOpen && (
             <div className={styles.accordion_content}>
-              <ListComponent tasks={pendingTasks} />
+              <ListComponent tasks={pendingTasks} title="In Progress" />
             </div>
           )}
         </div>

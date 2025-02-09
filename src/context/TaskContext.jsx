@@ -5,8 +5,13 @@ const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
-  const [searchQuery, setSearchQuery] = useState(""); // New state for search input
+  const [searchQuery, setSearchQuery] = useState("");
+  const [tasksSelected, setTasksSelected] = useState([]); // Store selected task IDs
   const { user } = useAuth();
+  const [filter, setFilter] = useState({
+    category: "",
+    dueDate: "",
+  });
 
   const getTasksTable = async () => {
     if (!user) return;
@@ -67,24 +72,126 @@ export const TaskProvider = ({ children }) => {
   };
 
   const deleteTaskHandler = async (key) => {
-    const response = await fetch(
-      `https://task-buddy-f099c-default-rtdb.firebaseio.com/tasks/${user.sub}/${key}.json`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    try {
+      const response = await fetch(
+        `https://task-buddy-f099c-default-rtdb.firebaseio.com/tasks/${user.sub}/${key}.json`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        getTasksTable();
+      } else throw new Error("Something went wrong");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteMultipleTasksHandler = async () => {
+    try {
+      for (let item of tasksSelected) {
+        await deleteTaskHandler(item);
       }
-    );
-    if (response.ok) {
-      getTasksTable();
+      setTasksSelected([]); // Clear selection after deletion
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // API to update status of a single task
+  const updateTaskStatus = async (taskId, newStatus) => {
+    try {
+      const response = await fetch(
+        `https://task-buddy-f099c-default-rtdb.firebaseio.com/tasks/${user.sub}/${taskId}.json`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: newStatus }),
+        }
+      );
+
+      if (response.ok) {
+        getTasksTable();
+      } else throw new Error("Failed to update status");
+    } catch (error) {
+      console.error("Error updating task status:", error);
+    }
+  };
+
+  // API to update multiple tasks' statuses at once
+  const updateMultipleTaskStatuses = async (taskIds, newStatus) => {
+    try {
+      const updatePromises = taskIds.map((taskId) =>
+        fetch(
+          `https://task-buddy-f099c-default-rtdb.firebaseio.com/tasks/${user.sub}/${taskId}.json`,
+          {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status: newStatus }),
+          }
+        )
+      );
+
+      await Promise.all(updatePromises);
+      await getTasksTable();
+      setTasksSelected([]);
+    } catch (error) {
+      console.error("Error updating multiple task statuses:", error);
+    }
+  };
+
+  // API to edit a task's fields (title, due date, category, etc.)
+  const editTask = async (taskId, updatedFields) => {
+    try {
+      const response = await fetch(
+        `https://task-buddy-f099c-default-rtdb.firebaseio.com/tasks/${user.sub}/${taskId}.json`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedFields),
+        }
+      );
+
+      if (response.ok) {
+        getTasksTable();
+      } else throw new Error("Failed to update task");
+    } catch (error) {
+      console.error("Error updating task:", error);
+    }
+  };
+
+  // Toggle task selection in array
+  const toggleTaskSelection = (taskId) => {
+    if (taskId === "clear") {
+      setTasksSelected([]);
+    } else {
+      setTasksSelected((prev) =>
+        prev.includes(taskId)
+          ? prev.filter((id) => id !== taskId)
+          : [...prev, taskId]
+      );
     }
   };
 
   // Filtered tasks based on search query
-  const filteredTasks = tasks.filter((task) =>
-    task.title?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredTasks = tasks
+    .filter((task) =>
+      task.title?.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .filter((task) =>
+      filter.category ? task.category === filter.category : true
+    )
+    .sort((a, b) => {
+      if (filter.dueDate === "Newest First") {
+        return new Date(b.dueDate) - new Date(a.dueDate);
+      } else if (filter.dueDate === "Oldest First") {
+        return new Date(a.dueDate) - new Date(b.dueDate);
+      }
+      return 0;
+    });
 
   useEffect(() => {
     if (user) {
@@ -95,12 +202,20 @@ export const TaskProvider = ({ children }) => {
   return (
     <TaskContext.Provider
       value={{
-        tasks: filteredTasks, // Use filtered tasks instead of all tasks
+        tasks: filteredTasks,
         addTodoHandler,
         getTasksTable,
         deleteTaskHandler,
         searchQuery,
         setSearchQuery,
+        tasksSelected,
+        toggleTaskSelection,
+        deleteMultipleTasksHandler,
+        updateTaskStatus,
+        updateMultipleTaskStatuses,
+        editTask,
+        filter,
+        setFilter,
       }}
     >
       {children}

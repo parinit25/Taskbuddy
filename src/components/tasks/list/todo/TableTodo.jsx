@@ -44,7 +44,7 @@ const TableTodo = () => {
               {taskButtonActive && (
                 <AddTaskForm addTaskButtonHandler={addTaskButtonHandler} />
               )}
-              <ListComponent tasks={todoTasks} />
+              <ListComponent tasks={todoTasks} title="Todo"/>
             </div>
           )}
         </div>

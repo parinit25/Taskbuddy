@@ -13,10 +13,7 @@ export const App = () => {
     <AuthProvider>
       <TaskProvider>
         <Routes>
-          {/* Public Route */}
           <Route path="/login" element={<LoginPage />} />
-
-          {/* Protected Routes */}
           <Route
             path="/"
             element={
